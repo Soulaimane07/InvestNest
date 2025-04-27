@@ -34,10 +34,69 @@ This project is a clone of the Stake platform (https://getstake.com), designed t
 - **Backend**: Spring Boot, MySQL.
 - **Tools**: Docker.
 
+
+
+        
+
 <br><br>
 ---
 ## How to Run
-### 1. **Backend**: 
-Use `docker-compose up` to start the MySQL database and run the Spring Boot application.
-2. **Frontend**: Navigate to the `frontend` folder and run `npm run dev` to start the development server.
-3. **Mobile**: Navigate to the `mobile` folder and run `npm start` to launch the Expo development server.
+
+### **Backend**
+```
+1. cd backend
+2. docker-compose up
+3. run main class
+```
+    
+>*Use `docker-compose up` to start the MySQL database and run the Spring Boot application.*
+
+
+### **Frontend** 
+```
+1. cd frontend
+2. npm install
+3. npm run dev
+```
+
+>*Navigate to the `frontend` folder and run `npm run dev` to start the development server.*
+
+
+### **Mobile**
+```
+1. cd mobile
+2. npm install
+3. npm start
+```
+    
+>*Navigate to the `mobile` folder and run `npm start` to launch the Expo development server.*
+
+
+
+<br><br>
+---
+## Resources
+
+
+>[Figma]( https://www.figma.com/design/1n0tBD6ovWC46MrGVwtNSm/Genie-Logiciel?t=eCqa6K1hR2AIhVDa-0) 
+
+>[Azure devops](https://dev.azure.com/SoulaimaneOuhmida/PropFi)
+
+
+### --- Web
+
+>[getStake](https://getstake.com/)
+
+>[Web1](https://www.behance.net/gallery/217876081/Real-Estate-Platform-Property-Management-SaaS-Web-App?tracking_source=search_projects|real+estate+investment+web+app&l=13) 
+
+>[Web2](https://www.behance.net/gallery/169315941/UI-UX-Design-Real-Estate-investment-platform?tracking_source=search_projects|real+estate+investment+web+app&l=3) 
+
+>[Web3](https://www.behance.net/gallery/212935797/CoFundEstate-Crowdfunding-Real-Estate-for-All?tracking_source=search_projects|real+estate+investment+web+app&l=2)
+
+        
+### --- Mobile
+
+>[Mobile1](https://www.behance.net/gallery/221539913/Aqarkum-Crowdfunding-Real-Estate-App-Pixwelz?tracking_source=search_projects|real+estate+investment+mobile&l=4)
+
+>[Mobile2](https://www.behance.net/gallery/204291315/Space-Application-Real-Estate-Investment-Application?tracking_source=search_projects|real+estate+investment+mobile&l=5)
+        
