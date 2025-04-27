@@ -1,15 +1,27 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Image from './Image'
+import { BackendURL } from '../../../Components/Functions'
+import axios from 'axios'
 
 function Login() {
     const navigate = useNavigate()
 
-    const loginFun = (e) => {
-        e.preventDefault()
+    const loginFun = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post(`${BackendURL}/users/login?email=${e.target.email.value}&password=${e.target.password.value}`, {
+                email: e.target.email.value,
+                password: e.target.password.value,
+            });
 
-        navigate("/home")
-    }
+            console.log(response.data);
+            localStorage.setItem("user", JSON.stringify(response.data)); // Store minimal data
+            navigate("/home");
+        } catch (err) {
+            console.error(err.response?.data?.error || "An error occurred");
+        }
+    };
 
   return (
     <div className='flex items-centerr h-screen'>
