@@ -2,6 +2,7 @@
 
 This project is a clone of the Stake platform (https://getstake.com), designed to provide users with a modern and intuitive way to invest in real estate. It includes a web application, a mobile application, and a backend API to support the platform's functionality.
 
+---
 ## Features
 
 ### Web Application
@@ -24,6 +25,7 @@ This project is a clone of the Stake platform (https://getstake.com), designed t
 - Mongo DB database for properties data.
 
 
+---
 ## Technologies Used
 - **Frontend**: React, Vite, Tailwind CSS.
 - **Mobile**: React Native, Expo.
@@ -31,6 +33,7 @@ This project is a clone of the Stake platform (https://getstake.com), designed t
 - **Tools**: Docker.
 
 
+---
 ## How to Run
 1. **Backend**: Use `docker-compose up` to start the MySQL database and run the Spring Boot application.
 2. **Frontend**: Navigate to the `frontend` folder and run `npm run dev` to start the development server.
