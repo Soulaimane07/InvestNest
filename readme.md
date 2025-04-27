@@ -37,6 +37,7 @@ This project is a clone of the Stake platform (https://getstake.com), designed t
 <br><br>
 ---
 ## How to Run
-1. **Backend**: Use `docker-compose up` to start the MySQL database and run the Spring Boot application.
+### 1. **Backend**: 
+Use `docker-compose up` to start the MySQL database and run the Spring Boot application.
 2. **Frontend**: Navigate to the `frontend` folder and run `npm run dev` to start the development server.
 3. **Mobile**: Navigate to the `mobile` folder and run `npm start` to launch the Expo development server.
