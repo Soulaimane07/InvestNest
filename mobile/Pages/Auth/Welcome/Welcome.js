@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function Welcome({ navigation }) {
   const [card, setCard] = useState(0); 
@@ -13,6 +14,25 @@ export default function Welcome({ navigation }) {
 
   return (
     <View style={styles.container}>
+      {card > 1 ?
+        <TouchableOpacity 
+          onPress={() => {
+            if (card - 1 > 0) {
+              setCard(card - 1); // Move to the next card
+            }
+          }}
+          style={styles.back}
+        >
+          <Ionicons name="chevron-back" size={40} color="#0FAC710" />
+        </TouchableOpacity>
+
+        :
+          <View
+            style={styles.backk}
+          >
+          </View>
+      }
+
       {cards.map((item, index) => (
         card === index && // Only render the card that matches the current index
           <View key={index} style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -49,8 +69,8 @@ export default function Welcome({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    // alignItems: 'center',
+    // justifyContent: 'center',
     paddingVertical: 60,
     paddingHorizontal: 40,
   },
@@ -67,5 +87,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 6,
     marginHorizontal: 'auto'
+  },
+  back: {
+    paddingVertical: 6,
+    width: 44
+  },
+  backk: {
+    width: 44,
+    height: 44
   }
 });
