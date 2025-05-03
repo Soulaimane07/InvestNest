@@ -2,6 +2,7 @@ import Home from "./Pages/App/Home/Home";
 import Login from "./Pages/Auth/Login/Login";
 import Signup from "./Pages/Auth/Signup/Signup";
 import Welcome from "./Pages/Auth/Welcome/Welcome";
+import Properties from "./Pages/App/Properties/Properties";
 import { BrowserRouter, Routes, Route} from "react-router-dom"
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/properties" element={<Properties />} />
       </Routes>
     </BrowserRouter>
   )
