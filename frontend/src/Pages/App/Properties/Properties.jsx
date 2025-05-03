@@ -1,4 +1,4 @@
-import { MapPin } from "lucide-react"
+//import { MapPin } from "lucide-react"
 import Sidebar from "../../../Components/Sidebar/Sidebar"
 import "./Properties.css"
 
