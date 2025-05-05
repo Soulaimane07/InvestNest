@@ -24,7 +24,6 @@ const PropertyCard = () => {
       <div className="property-content">
         {/* Location */}
         <div className="property-location">
-          <MapPin size={16} className="location-icon" />
           <span className="location-text">Morocco</span>
         </div>
 
@@ -77,6 +76,7 @@ export default function Properties() {
           <div className="properties-grid">
             {/* Render 6 property cards */}
             {[...Array(6)].map((_, index) => (
+
               <PropertyCard key={index} />
             ))}
           </div>
