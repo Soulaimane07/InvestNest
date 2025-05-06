@@ -14,3 +14,18 @@
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
 }
+
+
+
+.Property {
+  &:hover {
+    button {
+      opacity: 100%;
+      transition: all 300ms;
+    }
+  }
+  
+  button {
+    opacity: 0;
+  }
+}

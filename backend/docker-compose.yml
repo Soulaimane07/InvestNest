@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   mysql:
     image: mysql:8
@@ -15,5 +13,17 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
 
+  mongodb:
+    image: mongo:6
+    container_name: mongodb2_container
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: adminpassword
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
 volumes:
   mysql_data:
+  mongodb_data:

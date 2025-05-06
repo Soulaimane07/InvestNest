@@ -15,9 +15,8 @@ function Login() {
                 password: e.target.password.value,
             });
 
-            console.log(response.data);
-            localStorage.setItem("user", JSON.stringify(response.data)); // Store minimal data
-            navigate("/home");
+            localStorage.setItem("stake-user", JSON.stringify(response.data)); // Store minimal data
+            navigate("/");
         } catch (err) {
             console.error(err.response?.data?.error || "An error occurred");
         }

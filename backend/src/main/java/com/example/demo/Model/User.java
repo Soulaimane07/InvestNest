@@ -1,32 +1,28 @@
-package com.example.demo.Models;
+package com.example.demo.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*; // or use javax.persistence.* if using an older JDK
 
 @Entity
-@Table(name = "users")
+@Table(name = "users") // optional, to specify the table name
 public class User {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-increment ID
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // auto-increment ID
     private int id;
+
     private String fullname;
     private String email;
     private String password;
 
-    // Default constructor
     public User() {}
 
-    // Constructor without 'id' (used for creating new users)
     public User(String fullname, String email, String password) {
         this.fullname = fullname;
         this.email = email;
         this.password = password;
     }
 
-    // Getters and setters
+    // Getters and Setters
     public int getId() {
         return id;
     }
