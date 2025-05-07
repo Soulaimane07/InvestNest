@@ -51,4 +51,16 @@ public class UserController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<User> login(@RequestParam String email, @RequestParam String password) {
+        Optional<User> userOptional = userRepository.findByEmail(email);
+
+        if (userOptional.isPresent() && userOptional.get().getPassword().equals(password)) {
+            return ResponseEntity.ok(userOptional.get());
+        } else {
+            return ResponseEntity.status(401).build(); // Unauthorized
+        }
+    }
+
 }

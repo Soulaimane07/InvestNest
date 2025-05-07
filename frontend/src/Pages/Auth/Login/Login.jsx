@@ -3,9 +3,12 @@ import { Link, useNavigate } from 'react-router-dom'
 import Image from './Image'
 import { BackendURL } from '../../../Components/Functions'
 import axios from 'axios'
+import { useDispatch } from "react-redux";
+import { login } from '../../../../app/Slices/userSlice'
 
 function Login() {
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     const loginFun = async (e) => {
         e.preventDefault();
@@ -15,8 +18,11 @@ function Login() {
                 password: e.target.password.value,
             });
 
-            localStorage.setItem("stake-user", JSON.stringify(response.data)); // Store minimal data
-            navigate("/");
+            if (response.data) {
+                dispatch(login(response.data))
+                navigate("/");
+                window.location.reload()
+            }
         } catch (err) {
             console.error(err.response?.data?.error || "An error occurred");
         }

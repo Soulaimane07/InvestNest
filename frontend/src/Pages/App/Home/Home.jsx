@@ -6,12 +6,11 @@ import { IoIosArrowRoundForward } from "react-icons/io";
 import Header from '../../../Components/Header/Header';
 import { Link } from 'react-router-dom';
 import Footer from '../../../Components/Footer/Footer';
-import { GetProperties } from '../../../Components/Functions';
+import { useSelector } from 'react-redux';
 
 function Home() {
   const user = JSON.parse(localStorage.getItem("stake-user"))
-
-  const propertiesList = GetProperties()
+  const propertiesList = useSelector(state => state.properties.data)
 
   return (
     <>

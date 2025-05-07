@@ -37,6 +37,7 @@ function Sidebar() {
   const LogoutFun = () => {
     localStorage.removeItem("stake-user")
     navigate("/")
+    window.location.reload()
   }
 
 

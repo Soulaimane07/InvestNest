@@ -5,22 +5,7 @@ export const BackendURL = "http://localhost:8080/api";
 
 
 
-export const GetProperties = () => {
-    const [data, setData] = useState([])
 
-
-    useEffect(()=> {
-        axios.get(`${BackendURL}/properties`)
-            .then(res=> {
-                setData(res.data)
-            })
-            .catch(err => {
-                console.error(err);
-            })
-    }, [])
-
-    return data
-}
 
 export const GetProperty = (id) => {
     const [data, setData] = useState(null)
@@ -38,6 +23,9 @@ export const GetProperty = (id) => {
 
     return data
 }
+
+
+
 
 
 export const formatDate = (isoString) => {

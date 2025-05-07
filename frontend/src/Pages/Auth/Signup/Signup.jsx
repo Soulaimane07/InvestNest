@@ -1,15 +1,34 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Image from '../Login/Image'
+import axios from 'axios'
+import { BackendURL } from '../../../Components/Functions'
+import { login } from '../../../../app/Slices/userSlice'
+import { useDispatch } from 'react-redux'
 
 function Signup() {
 
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
-  const signupFun = (e) => {
+  const signupFun = async (e) => {
         e.preventDefault()
+        
+        try {
+            const response = await axios.post(`${BackendURL}/users`, {
+                fullname: e.target.fullname.value,
+                email: e.target.email.value,
+                password: e.target.password.value,
+            });
 
-        navigate("/home")
+            if (response.data) {
+                dispatch(login(response.data))
+                navigate("/");
+                window.location.reload()
+            }
+        } catch (err) {
+            console.error(err.response?.data?.error || "An error occurred");
+        }
   }
 
   return (
@@ -24,8 +43,8 @@ function Signup() {
                 <p className='text-gray-500 text-center mt-2'> Enter your credentials to create your new account </p>
                 <form onSubmit={signupFun} className='mt-10 flex flex-col space-y-6'>
                     <div className='flex flex-col space-y-1'>
-                        <label htmlFor="full name" className='text-sm font-semibold'> Full name </label>
-                        <input type="text" id='full name' className='border border-gray-300 rounded-md px-4 py-2 outline-none focus:ring-2 focus:ring-teal-500'
+                        <label htmlFor="fullname" className='text-sm font-semibold'> Full name </label>
+                        <input type="text" id='fullname' className='border border-gray-300 rounded-md px-4 py-2 outline-none focus:ring-2 focus:ring-teal-500'
                         placeholder='Enter your full name' required />
                     </div>
                     <div className='flex flex-col space-y-1'>

@@ -10,18 +10,59 @@ import { IoBedOutline } from "react-icons/io5";
 import { RxDividerVertical } from "react-icons/rx";
 import HowItWorks from "./HowItWorks";
 import { useParams } from "react-router-dom";
-import { formatDate, GetProperty } from "../../../Components/Functions";
+import { BackendURL, formatDate, GetProperty } from "../../../Components/Functions";
+import { MdFavorite } from "react-icons/md";
+import { FaBookmark } from "react-icons/fa";
+import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchLikedProperties, fetchSavedProperties } from "../../../../app/Slices/PropertiesSlice";
 
 
 export default function Property() {
+    const dispatch = useDispatch()
 
     const {id} = useParams()
-
     const propertyData = GetProperty(id)
+    const userId = useSelector(state => state.user.user?.id)
     
 
 
   const listImages = ["/property.jpeg", "/property1.jpg", "/property.jpeg", "/property1.jpg"]
+  
+
+    const FavFunction = () => {
+        const data = {
+            "idProperty": propertyData?.id,
+            "idUser": userId
+        }
+
+        axios.post(`${BackendURL}/likedProperties`, data)
+            .then(res => {
+                if(res.status === 200 | res.status === 201){
+                    dispatch(fetchLikedProperties(userId))
+                }
+            })
+            .catch(err => {
+                console.error(err);
+            })
+    }
+
+    const SaveFunction = () => {
+        const data = {
+            "idProperty": propertyData?.id,
+            "idUser": userId
+        }
+
+        axios.post(`${BackendURL}/savedProperties`, data)
+            .then(res => {
+                if(res.status === 200 | res.status === 201){
+                    dispatch(fetchSavedProperties(userId))
+                }
+            })
+            .catch(err => {
+                console.error(err);
+            })
+    }
 
   return (
     <>
@@ -44,7 +85,13 @@ export default function Property() {
                     <div className="flex gap-4 mt-6 items-start pb-40">
                         <div className="bg-white w-full min-h-screen rounded-md  py-6 pb-20">
                             <div className="px-8">
-                                <h1 className="text-4xl font-bold"> {propertyData?.title} </h1>
+                                <div className="flex items-center justify-between">
+                                    <h1 className="text-4xl font-bold"> {propertyData?.title} </h1>
+                                    <div className="flex space-x-2">
+                                        <button onClick={FavFunction} className="bg-green-50 cursor-pointer hover:bg-green-100 transition-all text-green-500 p-3 rounded-md"> <MdFavorite size={20} /> </button>
+                                        <button onClick={SaveFunction} className="bg-green-50 cursor-pointer hover:bg-green-100 transition-all text-green-500 p-3 rounded-md"> <FaBookmark size={20} /> </button>
+                                    </div>
+                                </div>
                                 <div className="flex items-center space-x-2 mt-6">
                                     <div className="flex items-center space-x-2">
                                         <IoBedOutline className="opacity-60" size={22} />
@@ -123,7 +170,7 @@ export default function Property() {
                             </div>
                         </div>
 
-                        <div className="bg-white w-1/2 rounded-md py-6 sticky top-4">
+                        <div className="bg-white w-1/2 rounded-md py-6 sticky top-26">
                             <h2 className="text-center opacity-60 mb-4"> Property price </h2> 
                             <h1 className="text-center text-green-400 font-bold text-4xl"> $ {propertyData?.price} </h1> 
 

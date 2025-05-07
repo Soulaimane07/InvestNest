@@ -40,4 +40,9 @@ public class PropertyController {
     public void deleteProperty(@PathVariable String id) {
         propertyRepository.deleteById(id);
     }
+
+    @DeleteMapping
+    public void deleteallProperty() {
+        propertyRepository.deleteAll();
+    }
 }

@@ -8,15 +8,39 @@ import MyDeals from "./Pages/App/MyDeals/MyDeals";
 import Settings from "./Pages/App/Settings/Settings";
 import { useEffect, useState } from "react";
 import Property from "./Pages/App/Property/Property";
+import SavedProperties from "./Pages/App/Saved/SavedProperties";
+import LikedProperties from "./Pages/App/Liked/LikedProperties";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchLikedProperties, fetchProperties, fetchSavedProperties } from "../app/Slices/PropertiesSlice";
+import { login, logout } from "../app/Slices/userSlice";
 
 function App() {
+  const dispatch = useDispatch()
 
-  const [user, setUser] = useState()
 
-  useEffect(()=> {
-    let userData = JSON.parse( localStorage.getItem("stake-user") )
-    setUser(userData)
-  }, [])
+  const userFromStore = useSelector((state) => state.user.data);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    setUser(userFromStore);
+  }, [userFromStore]);
+
+
+  useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem("stake-user"));
+    setUser(userData);
+  
+    if (userData) {
+      dispatch(login(userData));
+      dispatch(fetchProperties());
+      dispatch(fetchSavedProperties(userData.id));
+      dispatch(fetchLikedProperties(userData.id));
+    } else {
+      dispatch(logout());
+    }
+  }, [dispatch]);
+  
+  
   
 
   return (
@@ -30,18 +54,18 @@ function App() {
               <Route path="/properties">
                 <Route index element={<Properties />} />
                 <Route path=":id" element={<Property />} />
+                <Route path="saved" element={<SavedProperties />} />
+                <Route path="liked" element={<LikedProperties />} />
               </Route>
               
               <Route path="/my-deals" element={<MyDeals />} />
               <Route path="/settings" element={<Settings />} />
-              <Route path="*" element={<Navigate to="/" />} />
             </>
           :
             <>
               <Route path="/" element={<Welcome />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
-              <Route path="*" element={<Navigate to="/" />} />
             </>
         }
       </Routes>

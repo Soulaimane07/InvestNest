@@ -9,7 +9,7 @@ import { formatDate } from '../Functions';
 function PropertiesPropety({data}) {
   const [imageDisplayed, setImageDisplayed] = useState(0)
 
-  const listImages = ["property.jpeg", "property1.jpg", "property.jpeg", "property1.jpg"]
+  const listImages = ["/property.jpeg", "/property1.jpg", "/property.jpeg", "/property1.jpg"]
   
 
 
