@@ -26,7 +26,7 @@ public class LikedPropertyController {
     public ResponseEntity<?> saveProperty(@RequestBody LikedProperty likedProperty) {
         // Assuming the combination of userId and propertyId must be unique
         Optional<LikedProperty> existing = likedPropertyRepository
-            .findByUserIdAndPropertyId(likedProperty.getIdUser(), likedProperty.getIdProperty());
+            .findByIdUserAndIdProperty(likedProperty.getIdUser(), likedProperty.getIdProperty());
 
         if (existing.isPresent()) {
             return ResponseEntity

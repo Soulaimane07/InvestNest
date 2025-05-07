@@ -11,5 +11,5 @@ import com.example.demo.Model.LikedProperty;
 @Repository
 public interface LikedPropertyRepository extends MongoRepository<LikedProperty, String> {
     List<LikedProperty> findByIdUser(int idUser);
-    Optional<LikedProperty> findByUserIdAndPropertyId(int idUser, String propertyId);
+    Optional<LikedProperty> findByIdUserAndIdProperty(int idUser, String propertyId);
 }
