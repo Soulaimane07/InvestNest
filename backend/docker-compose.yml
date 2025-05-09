@@ -13,16 +13,11 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
 
-  mongodb:
+  mongo:
     image: mongo:6
-    container_name: mongodb2_container
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: admin
-      MONGO_INITDB_ROOT_PASSWORD: adminpassword
+    container_name: mongo3-container
     ports:
       - "27017:27017"
-    volumes:
-      - mongodb_data:/data/db
 
 volumes:
   mysql_data:

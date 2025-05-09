@@ -16,9 +16,17 @@ import { FaBookmark } from "react-icons/fa";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchLikedProperties, fetchSavedProperties } from "../../../../app/Slices/PropertiesSlice";
+import InvestModel from "./InvestModel";
+import { useState } from "react";
+import { FaCalculator } from "react-icons/fa";
+import InvestCalc from "./InvestCalc";
+
 
 
 export default function Property() {
+  const lang = useSelector((state) => state.user.language.data.property);
+
+
     const dispatch = useDispatch()
 
     const {id} = useParams()
@@ -26,8 +34,7 @@ export default function Property() {
     const userId = useSelector(state => state.user.user?.id)
     
 
-
-  const listImages = ["/property.jpeg", "/property1.jpg", "/property.jpeg", "/property1.jpg"]
+  const listImages = propertyData?.listImages || []
   
 
     const FavFunction = () => {
@@ -64,32 +71,40 @@ export default function Property() {
             })
     }
 
+
+    const [openModal, setOpenModal] = useState(false)
+    
+    
+    
+
+
+
   return (
     <>
         <div className='flex'>
             <Sidebar />
 
             <main className='bg-gray-100 w-full px-10'>
-                <Header pageTitle="Property" />
+                <Header pageTitle={lang.title} />
 
                 <div className="px-4">
                     <div className="flex items-stretch gap-2 ">
-                        <img className=' w-1/2 rounded-md' src={listImages[0]} alt="property" />
-                        <div className="grid grid-cols-2 gap-2">
+                        <img className=' w-1/2  rounded-md' src={listImages[0]} alt="property" />
+                        <div className="grid grid-cols-2 gap-2 flex-1 h-full">
                             {listImages.map((item,key)=>(
-                                <img className=' w-full h-full rounded-md' src={item} key={key} alt="property" />
+                                key < 4 && <img className=' w-full h-full rounded-md' src={item} key={key} alt="property" />
                             ))}
                         </div>
                     </div>
 
                     <div className="flex gap-4 mt-6 items-start pb-40">
-                        <div className="bg-white w-full min-h-screen rounded-md  py-6 pb-20">
+                        <div className="bg-white border border-gray-200 w-full min-h-screen rounded-md  py-6 pb-20">
                             <div className="px-8">
                                 <div className="flex items-center justify-between">
                                     <h1 className="text-4xl font-bold"> {propertyData?.title} </h1>
-                                    <div className="flex space-x-2">
-                                        <button onClick={FavFunction} className="bg-green-50 cursor-pointer hover:bg-green-100 transition-all text-green-500 p-3 rounded-md"> <MdFavorite size={20} /> </button>
-                                        <button onClick={SaveFunction} className="bg-green-50 cursor-pointer hover:bg-green-100 transition-all text-green-500 p-3 rounded-md"> <FaBookmark size={20} /> </button>
+                                    <div className="flex space-x-2 mt-2">
+                                        <button onClick={FavFunction} className="bg-teal-50 cursor-pointer hover:bg-teal-100 transition-all text-teal-500 p-3 rounded-md"> <MdFavorite size={20} /> </button>
+                                        <button onClick={SaveFunction} className="bg-teal-50 cursor-pointer hover:bg-teal-100 transition-all text-teal-500 p-3 rounded-md"> <FaBookmark size={20} /> </button>
                                     </div>
                                 </div>
                                 <div className="flex items-center space-x-2 mt-6">
@@ -102,7 +117,7 @@ export default function Property() {
                                     
                                     <div className="flex items-center space-x-2">
                                         <LuSquareDashed className="opacity-60" size={22} />
-                                        <p className="font-medium"> {propertyData?.squareSpace} </p>
+                                        <p className="font-medium"> {propertyData?.squareSpace} Sq.Ft </p>
                                     </div>
                                     
                                     <RxDividerVertical size={18} className="opacity-20" />
@@ -114,13 +129,15 @@ export default function Property() {
                             </div>
 
                             <div className="mt-18">
-                                <HowItWorks />
+                                <HowItWorks lang={lang.works} />
                             </div>
+
+                            <InvestCalc />
 
                             <div className="mt-18 px-8">
                                 <div className="flex items-center space-x-2 opacity-80">
                                     <RiHome3Fill size={22} />
-                                    <h2 className="text-lg font-medium"> Property Overview </h2>
+                                    <h2 className="text-lg font-medium"> {lang.overview} </h2>
                                 </div>
                                 <p className="mt-4 px-6"> 
                                     {propertyData?.overview}
@@ -130,11 +147,11 @@ export default function Property() {
                             <div className="mt-18 px-8">
                                 <div className="flex items-center space-x-2 opacity-80">
                                     <MdLocationPin size={22} />
-                                    <h2 className="text-lg font-medium"> Location </h2>
+                                    <h2 className="text-lg font-medium"> {lang.location} </h2>
                                 </div>
                                 <div className="px-6">
                                     <p className="mt-4 flex items-center space-x-2">
-                                        <IoLocationOutline className="text-green-400" size={21} />   
+                                        <IoLocationOutline className="text-teal-400" size={21} />   
                                         {propertyData?.location}
                                     </p>
 
@@ -157,41 +174,46 @@ export default function Property() {
                             <div className="mt-18 px-8">
                                 <div className="flex items-center space-x-2 opacity-80">
                                     <FaCommentDots size={22} />
-                                    <h2 className="text-lg font-medium"> Have more questions about this property? </h2>
+                                    <h2 className="text-lg font-medium"> {lang.comment} </h2>
                                 </div>
                                 <div className="px-6 mt-4 flex items-start space-x-6">
                                     <img src="/logo-icon.jpg" className="w-16"  />
                                     <textarea 
-                                        className="w-full p-4 rounded-md bg-gray-200/60 border-2 border-transparent focus:border-green-500 focus:outline-none transition duration-150" 
-                                        placeholder="Enter your message here..." 
-                                        
+                                        className="w-full p-4 rounded-md bg-gray-200/30 border-2 border-transparent focus:border-teal-500 focus:outline-none transition duration-150" 
+                                        placeholder={lang.message}
                                     />
                                 </div>
                             </div>
                         </div>
 
-                        <div className="bg-white w-1/2 rounded-md py-6 sticky top-26">
-                            <h2 className="text-center opacity-60 mb-4"> Property price </h2> 
-                            <h1 className="text-center text-green-400 font-bold text-4xl"> $ {propertyData?.price} </h1> 
+                        <div className="bg-white border border-gray-200 w-1/2 rounded-md py-6 px-8 sticky top-26">
+                            <h2 className="text-center opacity-60 mb-4"> {lang.price} </h2> 
+                            <h1 className="text-center text-teal-400 font-bold text-4xl"> $ {propertyData?.price} </h1> 
 
-                            <div className='bg-gray-50 rounded-md py-2 px-4 mx-6 mt-8'>
+                            <div className='bg-gray-50 rounded-md py-2 px-4 mt-8'>
                                 <div className='flex items-center justify-between'>
-                                    <label className='opacity-60'> Funded date </label>
+                                    <label className='opacity-60'> {lang.funded} </label>
                                     <p className='font-medium opacity-80'> {formatDate(propertyData?.fundedDate)} </p>
                                 </div>
                                 <div className='flex items-center justify-between'>
-                                    <label className='opacity-60'> Purchase price </label>
+                                    <label className='opacity-60'> {lang.purchase} </label>
                                     <p className='font-medium opacity-80'> $ {propertyData?.purchasePrice} </p>
                                 </div>
                                 <div className='flex items-center justify-between'>
-                                    <label className='opacity-60'> Total rental income </label>
+                                    <label className='opacity-60'> {lang.total} </label>
                                     <p className='font-medium opacity-80'> $ {propertyData?.totalRentalIncome} </p>
                                 </div>
                             </div>
+
+                            <button onClick={()=> setOpenModal(true)} className="bg-teal-500 shadow hover:shadow-lg text-white w-full mt-6 rounded-md py-3 font-medium text-md cursor-pointer transition-all hover:bg-teal-400 hover:scale-105" > 
+                                {lang.buy}
+                            </button>
                         </div>
                     </div>
                 </div>
             </main>
+
+            {openModal && <InvestModel setOpen={setOpenModal} />}
         </div>
 
         <Footer />

@@ -5,9 +5,12 @@ import com.example.demo.Model.SavedProperty;
 import com.example.demo.Repository.PropertyRepository;
 import com.example.demo.Repository.SavedPropertyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -20,8 +23,19 @@ public class SavedPropertyController {
     private PropertyRepository propertyRepository;
 
     @PostMapping
-    public SavedProperty saveProperty(@RequestBody SavedProperty savedProperty) {
-        return savedPropertyRepository.save(savedProperty);
+    public ResponseEntity<?> saveProperty(@RequestBody SavedProperty savedProperty) {
+        // Assuming the combination of userId and propertyId must be unique
+        Optional<SavedProperty> existing = savedPropertyRepository
+            .findByIdUserAndIdProperty(savedProperty.getIdUser(), savedProperty.getIdProperty());
+
+        if (existing.isPresent()) {
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body("This property is already liked.");
+        }
+
+        SavedProperty saved = savedPropertyRepository.save(savedProperty);
+        return ResponseEntity.ok(saved);
     }
 
     @GetMapping

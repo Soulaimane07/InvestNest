@@ -6,6 +6,7 @@ import PropertiesPropety from '../../../Components/Properties/PropertiesPropety'
 import { useSelector } from 'react-redux'
 
 export default function LikedProperties() {
+  const lang = useSelector((state) => state.user.language.data.sidebar);
   const likedPropertiesList = useSelector(state => state.properties.liked)
 
   return (
@@ -14,7 +15,7 @@ export default function LikedProperties() {
         <Sidebar />
 
         <main className='bg-gray-100 w-full px-10 min-h-screen'>
-          <Header pageTitle="Saved Properties" />
+          <Header pageTitle={lang.liked} />
 
           <div className='grid grid-cols-3 gap-6 px-8'>
             {likedPropertiesList?.map((item,key)=>(

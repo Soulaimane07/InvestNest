@@ -30,7 +30,7 @@ public class LikedPropertyController {
 
         if (existing.isPresent()) {
             return ResponseEntity
-                    .status(HttpStatus.CONFLICT)
+                    .status(HttpStatus.BAD_REQUEST)
                     .body("This property is already liked.");
         }
 

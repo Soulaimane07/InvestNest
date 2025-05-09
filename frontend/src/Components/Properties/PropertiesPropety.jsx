@@ -4,17 +4,20 @@ import { CiLocationOn } from 'react-icons/ci'
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 import { Link } from 'react-router-dom';
 import { formatDate } from '../Functions';
+import { useSelector } from 'react-redux';
 
 
 function PropertiesPropety({data}) {
+  const lang = useSelector((state) => state.user.language.data.propertyCom);
+
   const [imageDisplayed, setImageDisplayed] = useState(0)
 
-  const listImages = ["/property.jpeg", "/property1.jpg", "/property.jpeg", "/property1.jpg"]
+  const listImages = data?.listImages
   
 
 
   return (
-    <Link to={`/properties/${data.id}`} className='Property bg-white rounded-lg overflow-hidden pb-3 shadow-md '>
+    <div className='Property hover:scale-102 mb-1 transition-all bg-white rounded-lg overflow-hidden pb-3 shadow-md '>
       <div className='relative'>
         <div className=' absolute w-full space-x-1.5 bottom-2 flex items-center justify-center' >
           {listImages?.map((item,key)=>(
@@ -33,33 +36,35 @@ function PropertiesPropety({data}) {
       </div>
 
 
-      <div className='px-4 mt-1'> 
-        <div className='flex items-center text-gray-400 space-x-1.5  pt-2'>
-          <CiLocationOn />  
-          <h1 className='text-gray-400' >Morocco</h1> 
-        </div>
-        <h3 className='text-xl font-medium mt-2' > {data.title} </h3>
-        <div className='flex justify-between mt-1'>
-          <h2 className='text-green-400 font-semibold  text-xl'>$ {data.price}</h2>
-          <h2 className='text-gray-400  text-md'> {data.totalInvestors}  Investors</h2>
-        </div>
+      <Link to={`/properties/${data.id}`}> 
+        <div className='px-6 mt-1'>
+          <div className='flex items-center text-gray-400 space-x-1.5  pt-2'>
+            <CiLocationOn />  
+            <h1 className='text-gray-400' > {data.location} </h1> 
+          </div>
+          <h3 className='text-xl font-medium mt-2' > {data.title} </h3>
+          <div className='flex justify-between mt-1'>
+            <h2 className='text-teal-400 font-semibold  text-xl'>$ {data.price}</h2>
+            <h2 className='text-gray-400  text-md'> {data.totalInvestors}  Investors</h2>
+          </div>
 
-        <div className=' mt-4 bg-gray-50 rounded-md py-2 px-4'>
-          <div className='flex items-center justify-between'>
-            <label className='opacity-60'> Funded date </label>
-            <p className='font-medium opacity-80'> {formatDate(data.fundedDate)} </p>
-          </div>
-          <div className='flex items-center justify-between'>
-            <label className='opacity-60'> Purchase price </label>
-            <p className='font-medium opacity-80'> $ {data.purchasePrice} </p>
-          </div>
-          <div className='flex items-center justify-between'>
-            <label className='opacity-60'> Total rental income </label>
-            <p className='font-medium opacity-80'> $ {data.totalRentalIncome} </p>
+          <div className=' mt-4 bg-gray-50 rounded-md py-2 px-4'>
+            <div className='flex items-center justify-between'>
+              <label className='opacity-60'>  {lang.funded} </label>
+              <p className='font-medium opacity-80'> {formatDate(data.fundedDate)} </p>
+            </div>
+            <div className='flex items-center justify-between'>
+              <label className='opacity-60'> {lang.purchase} </label>
+              <p className='font-medium opacity-80'> $ {data.purchasePrice} </p>
+            </div>
+            <div className='flex items-center justify-between'>
+              <label className='opacity-60'>  {lang.total} </label>
+              <p className='font-medium opacity-80'> $ {data.totalRentalIncome} </p>
+            </div>
           </div>
         </div>
-      </div>
-    </Link>
+      </Link>
+    </div>
   )
 }
 

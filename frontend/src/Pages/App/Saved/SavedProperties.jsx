@@ -6,6 +6,7 @@ import PropertiesPropety from '../../../Components/Properties/PropertiesPropety'
 import { useSelector } from 'react-redux'
 
 export default function SavedProperties() {
+    const lang = useSelector((state) => state.user.language.data.sidebar);
   const savedPropertiesList = useSelector(state => state.properties.saved)
 
 
@@ -15,7 +16,7 @@ export default function SavedProperties() {
         <Sidebar />
 
         <main className='bg-gray-100 w-full px-10 min-h-screen'>
-          <Header pageTitle="Saved Properties" />
+          <Header pageTitle={lang.saved} />
 
           <div className='grid grid-cols-3 gap-6 px-8'>
             {savedPropertiesList?.map((item,key)=>(

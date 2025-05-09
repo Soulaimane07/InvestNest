@@ -5,7 +5,7 @@ import Footer from "../../../Components/Footer/Footer"
 import { useSelector } from "react-redux"
 
 export default function Properties() {
-
+  const lang = useSelector((state) => state.user.language.data.properties);
   const propertiesList = useSelector(state => state.properties.data)
   
   return (
@@ -14,7 +14,7 @@ export default function Properties() {
         <Sidebar />
 
         <main className='bg-gray-100 w-full px-10 pb-20'>
-          <Header pageTitle="Properties" />
+          <Header pageTitle={lang.title} />
 
           <div className="grid grid-cols-3 gap-6 px-8">
             {propertiesList?.map((item,key)=>(

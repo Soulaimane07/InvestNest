@@ -35,6 +35,34 @@ public class UserController {
         return userRepository.save(user);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateUserDetails(@PathVariable int id, @RequestBody User updatedUser) {
+        Optional<User> userOptional = userRepository.findById(id);
+
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            user.setEmail(updatedUser.getEmail());
+            user.setFullname(updatedUser.getFullname());
+            return ResponseEntity.ok(userRepository.save(user));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PutMapping("/{id}/password")
+    public ResponseEntity<User> updatePassword(@PathVariable int id, @RequestParam String newPassword) {
+        Optional<User> userOptional = userRepository.findById(id);
+
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            user.setPassword(newPassword); // In real apps, encrypt this!
+            return ResponseEntity.ok(userRepository.save(user));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable int id) {
         if (userRepository.existsById(id)) {

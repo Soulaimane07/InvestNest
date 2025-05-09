@@ -1,18 +1,19 @@
 package com.example.demo.Model;
 
-import jakarta.persistence.*; // or use javax.persistence.* if using an older JDK
+import jakarta.persistence.*;
 
 @Entity
-@Table(name = "users") // optional, to specify the table name
+@Table(name = "users")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // auto-increment ID
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String fullname;
     private String email;
     private String password;
+
 
     public User() {}
 
@@ -22,7 +23,7 @@ public class User {
         this.password = password;
     }
 
-    // Getters and Setters
+    // Getters and setters
     public int getId() {
         return id;
     }
@@ -50,4 +51,5 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }
