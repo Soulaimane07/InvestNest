@@ -28,12 +28,24 @@ export const fetchLikedProperties = createAsyncThunk(
   }
 );
 
+export const fetchDeals = createAsyncThunk(
+  'deals/fetchDeals',
+  async (userId) => {
+    const response = await fetch(`${BackendURL}/deals/user/${userId}`);
+    const data = await response.json();
+    return data;
+  }
+);
+
+
+
 const propertiesSlice = createSlice({
   name: 'properties',
   initialState: {
     data: [],
     saved: [],
     liked: [],
+    deals: [],
     loading: false,
     error: null,
   },
@@ -77,6 +89,19 @@ const propertiesSlice = createSlice({
         state.liked = action.payload;
       })
       .addCase(fetchLikedProperties.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+
+      .addCase(fetchDeals.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchDeals.fulfilled, (state, action) => {
+        state.loading = false;
+        state.deals = action.payload;
+      })
+      .addCase(fetchDeals.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });

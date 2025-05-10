@@ -37,7 +37,7 @@ function DashboardProperty({data}) {
           </div>
           <h3 className='text-xl font-medium mt-2' > {data.title} </h3>
           <div className='flex justify-between mt-1'>
-            <h2 className='text-teal-400 font-semibold  text-xl'>$ {data.price}</h2>
+            <h2 className='text-teal-400 font-semibold  text-xl'>$ {data.price?.toLocaleString()}</h2>
             <h2 className='text-gray-400  text-md'> {data.totalInvestors} Investors</h2>
           </div>
         </div> 

@@ -15,11 +15,9 @@ import { MdFavorite } from "react-icons/md";
 import { FaBookmark } from "react-icons/fa";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchLikedProperties, fetchSavedProperties } from "../../../../app/Slices/PropertiesSlice";
-import InvestModel from "./InvestModel";
-import { useState } from "react";
-import { FaCalculator } from "react-icons/fa";
+import { fetchDeals, fetchLikedProperties, fetchSavedProperties } from "../../../../app/Slices/PropertiesSlice";
 import InvestCalc from "./InvestCalc";
+import { useEffect, useState } from "react";
 
 
 
@@ -70,13 +68,43 @@ export default function Property() {
                 console.error(err);
             })
     }
-
-
-    const [openModal, setOpenModal] = useState(false)
     
     
     
 
+    const walletBalance = useSelector(state => state.wallet.balance)
+
+    const [amount, setAmount] = useState(0)
+    
+    useEffect(()=> {
+        setAmount(walletBalance)
+    }, [walletBalance])
+
+     const handleChange = (e) => {
+        const value = e.target.value.replace(/[^0-9.]/g, ''); // remove non-numeric except dot
+        setAmount(value);
+    };
+
+
+
+    
+    const InvestFun = () => {
+        let data = {
+            "idProperty": id,
+            "idUser": userId,
+            "amountInvested": amount
+        }
+        
+        axios.post(`${BackendURL}/deals`, data)
+            .then(res => {
+                dispatch(fetchDeals(userId))
+            })
+            .catch(err => {
+                console.error(err);
+            })
+    }
+
+    
 
 
   return (
@@ -132,7 +160,7 @@ export default function Property() {
                                 <HowItWorks lang={lang.works} />
                             </div>
 
-                            <InvestCalc />
+                            <InvestCalc walletBalance={walletBalance} />
 
                             <div className="mt-18 px-8">
                                 <div className="flex items-center space-x-2 opacity-80">
@@ -188,7 +216,7 @@ export default function Property() {
 
                         <div className="bg-white border border-gray-200 w-1/2 rounded-md py-6 px-8 sticky top-26">
                             <h2 className="text-center opacity-60 mb-4"> {lang.price} </h2> 
-                            <h1 className="text-center text-teal-400 font-bold text-4xl"> $ {propertyData?.price} </h1> 
+                            <h1 className="text-center text-teal-400 font-bold text-4xl"> $ {propertyData?.price?.toLocaleString()} </h1> 
 
                             <div className='bg-gray-50 rounded-md py-2 px-4 mt-8'>
                                 <div className='flex items-center justify-between'>
@@ -197,23 +225,28 @@ export default function Property() {
                                 </div>
                                 <div className='flex items-center justify-between'>
                                     <label className='opacity-60'> {lang.purchase} </label>
-                                    <p className='font-medium opacity-80'> $ {propertyData?.purchasePrice} </p>
+                                    <p className='font-medium opacity-80'> $ {propertyData?.purchasePrice?.toLocaleString()} </p>
                                 </div>
                                 <div className='flex items-center justify-between'>
                                     <label className='opacity-60'> {lang.total} </label>
-                                    <p className='font-medium opacity-80'> $ {propertyData?.totalRentalIncome} </p>
+                                    <p className='font-medium opacity-80'> $ {propertyData?.totalRentalIncome?.toLocaleString()} </p>
                                 </div>
                             </div>
 
-                            <button onClick={()=> setOpenModal(true)} className="bg-teal-500 shadow hover:shadow-lg text-white w-full mt-6 rounded-md py-3 font-medium text-md cursor-pointer transition-all hover:bg-teal-400 hover:scale-105" > 
+                            <input
+                                className="border w-full rounded-md mt-4 px-4 p-3 border-gray-400"
+                                onChange={handleChange}
+                                value={amount ? `$ ${Number(amount).toLocaleString()}` : ''}
+                                placeholder="$ 0"
+                            />
+
+                            <button onClick={InvestFun} className="bg-teal-500 shadow hover:shadow-lg text-white w-full mt-6 rounded-md py-3 font-medium text-md cursor-pointer transition-all hover:bg-teal-400 hover:scale-105" > 
                                 {lang.buy}
                             </button>
                         </div>
                     </div>
                 </div>
             </main>
-
-            {openModal && <InvestModel setOpen={setOpenModal} />}
         </div>
 
         <Footer />

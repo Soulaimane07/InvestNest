@@ -44,7 +44,7 @@ function PropertiesPropety({data}) {
           </div>
           <h3 className='text-xl font-medium mt-2' > {data.title} </h3>
           <div className='flex justify-between mt-1'>
-            <h2 className='text-teal-400 font-semibold  text-xl'>$ {data.price}</h2>
+            <h2 className='text-teal-400 font-semibold  text-xl'>$ {data.price?.toLocaleString()}</h2>
             <h2 className='text-gray-400  text-md'> {data.totalInvestors}  Investors</h2>
           </div>
 
@@ -55,11 +55,11 @@ function PropertiesPropety({data}) {
             </div>
             <div className='flex items-center justify-between'>
               <label className='opacity-60'> {lang.purchase} </label>
-              <p className='font-medium opacity-80'> $ {data.purchasePrice} </p>
+              <p className='font-medium opacity-80'> $ {data.purchasePrice?.toLocaleString()} </p>
             </div>
             <div className='flex items-center justify-between'>
               <label className='opacity-60'>  {lang.total} </label>
-              <p className='font-medium opacity-80'> $ {data.totalRentalIncome} </p>
+              <p className='font-medium opacity-80'> $ {data.totalRentalIncome?.toLocaleString()} </p>
             </div>
           </div>
         </div>

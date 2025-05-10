@@ -1,6 +1,7 @@
 import React from 'react'
 import { GoClock } from "react-icons/go";
 import { useSelector } from 'react-redux';
+import { formatDate } from '../../../Components/Functions';
 
 
 function Table() {
@@ -27,8 +28,8 @@ function Table() {
                     {item.type}
                     </th>
                     <td className="px-6 py-4">{item.status}</td>
-                    <td className="px-6 py-4">{item.date}</td>
-                    <td className="px-6 py-4 font-medium">${item.amount}</td>
+                    <td className="px-6 py-4">{ formatDate(item.date)}</td>
+                    <td className="px-6 py-4 font-medium">${item.amount?.toLocaleString()}</td>
                 </tr>
                 ))
             ) : (

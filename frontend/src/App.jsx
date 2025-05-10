@@ -10,13 +10,14 @@ import Property from "./Pages/App/Property/Property";
 import SavedProperties from "./Pages/App/Saved/SavedProperties";
 import LikedProperties from "./Pages/App/Liked/LikedProperties";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchLikedProperties, fetchProperties, fetchSavedProperties } from "../app/Slices/PropertiesSlice";
+import { fetchDeals, fetchLikedProperties, fetchProperties, fetchSavedProperties } from "../app/Slices/PropertiesSlice";
 import { login, logout, setLang } from "../app/Slices/userSlice";
 import Wallet from "./Pages/App/Wallet/Wallet";
 import { fetchWallet } from "../app/Slices/walletSlice";
 import Profile from "./Pages/App/Settings/Profile";
 import Password from "./Pages/App/Settings/Password";
 import Plans from "./Pages/App/Settings/Plans";
+import Goal from "./Components/Goal/Goal";
 
 function App() {
   const dispatch = useDispatch()
@@ -43,15 +44,22 @@ function App() {
       dispatch(fetchProperties());
       dispatch(fetchSavedProperties(userData.id));
       dispatch(fetchLikedProperties(userData.id));
+      dispatch(fetchDeals(userData.id));
     } else {
       dispatch(logout());
     }
   }, [dispatch]);
   
+
+
+  const OpenGoal = false;
+
   
   
 
   return (
+    <>
+    {user && OpenGoal && <Goal />}
     <BrowserRouter>
       <Routes>
         {user 
@@ -83,6 +91,7 @@ function App() {
         }
       </Routes>
     </BrowserRouter>
+    </>
   )
 }
 

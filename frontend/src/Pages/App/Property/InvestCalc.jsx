@@ -4,9 +4,7 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 import { useSelector } from "react-redux"
 
 
-function InvestCalc() {
-    const walletBalance = useSelector(state => state.wallet.balance)
-    
+function InvestCalc({walletBalance}) {
     useEffect(()=> {
         setInitialInvestment(walletBalance)
     }, [walletBalance])
@@ -86,7 +84,7 @@ function InvestCalc() {
                     <XAxis dataKey="name" />
                     <YAxis
                         tickFormatter={(value) => `$${value.toLocaleString()}`}
-                        domain={(dataMin, dataMax) => [initialInvestment - 10000/10, Math.max(dataMax, initialInvestment + 30000/10)]}
+                        domain={(dataMin, dataMax) => [initialInvestment - 100, Math.max(dataMax, initialInvestment + 300)]}
                     />
                     <Tooltip formatter={(value) => `$${value.toLocaleString()}`} />
                     <Bar dataKey="Investment" stackId="a" fill="#1E2939" />
@@ -103,9 +101,9 @@ function InvestCalc() {
                         </div>
                         <input
                             type="range"
-                            min={walletBalance - 10000}
-                            max={walletBalance + 100000}
-                            step={1000}
+                            min={walletBalance - 450}
+                            max={walletBalance + 1500}
+                            step={50}
                             value={initialInvestment}
                             onChange={(e) => setInitialInvestment(Number(e.target.value))}
                             className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
