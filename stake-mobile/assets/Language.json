@@ -1,0 +1,323 @@
+{
+    "english": {
+        "title": "English",
+        "subTitle": "en",
+        "data": {
+            "welcome": {
+                "header": {
+                    "alert": "10.1% average investor returns in 2025",
+                    "build1": "Build your wealth",
+                    "build2": "through ",
+                    "estate": "real estate ",
+                    "p": "Thousands of investors all over the world are using Stake to access income generating real estate deals in high growth markets, from only AED 500",
+                    "start": "Start now"
+                },
+                "main": {
+                    "how": "How it works",
+                    "p1": "Build an income-generating",
+                    "p2": "real estate portfolio, easily",
+                    "box1": {
+                        "sub": "Browse",
+                        "title": "Access prime real estate across multiple markets",
+                        "p": "Sign up in less than 3 minutes and browse our collection of global properties and funds, sourced by experts"
+                    },
+                    "box2": {
+                        "sub": "Invest",
+                        "title": "Grab a piece of the ones you love, from only AED 500",
+                        "p": "Skip the hassle, and buy shares in your favourite deals, no matter where you are in the world."
+                    },
+                    "box3": {
+                        "sub": "Earn",
+                        "title": "Enjoy regular passive income with no effort",
+                        "p": "Sit back and earn consistent rental income from your brand new real estate portfolio",
+                        "l1": "Paid directly to your Stake wallet"
+                    },
+                    "box4": {
+                        "sub": "Sell",
+                        "title": "Tap into liquidity when you need it most",
+                        "p": "Realise your full investment appreciation at maturity or take early profits by selling within our community",
+                        "l1": "Sell during our Exit Windows",
+                        "l2": "Full sale of properties and funds"
+                    }
+                },
+                "card": {
+                    "download": "Download our app",
+                    "title": "The modern way for anyone to invest in real estate"
+                }
+            },
+            "login": {
+                "welcome": "Welcome back",
+                "p": "Enter your credentials to access your account",
+                "email": "Email",
+                "emailP": "Enter your email",
+                "password": "Password",
+                "passwordP": "Enter your password",
+                "login": "Log in",
+                "account": "Don't have an account ?",
+                "signup": "Sign up"
+            },
+            "signup": {
+                "welcome": "Start investing",
+                "p": "Enter your credentials to create your new account",
+                "fullname": "Full name",
+                "fullnameP": "Enter your full name",
+                "email": "Email",
+                "emailP": "Enter your email",
+                "password": "Password",
+                "passwordP": "Enter your password",
+                "signup": "Create account",
+                "login": "Login",
+                "account": "Already have an account ?"
+            },
+            "sidebar": {
+                "dashboard": "Dashboard",
+                "properties": "Properties",
+                "myWallet": "My Wallet",
+                "myDeals": "My Deals",
+                "settings": "Settings",
+                "logout": "Logout",
+                "liked": "Liked Properties",
+                "saved": "Saved Properties"
+            },
+            "dashboard": {
+                "title": "Dashboard",
+                "welcome": "Welcome",
+                "p": "Explore Tailored Investment Opportunities",
+                "balance": "Wallet balance",
+                "income": "Monthly income",
+                "rental": "Total rental income",
+                "title2": "Invesstement opportunities",
+                "title2sub": "Discover properties that matches your goals",
+                "button": "View all opportunties"
+            },
+            "myDeals": {
+                "title": "My Deals"
+            },
+            "properties": {
+                "title": "Properties"
+            },
+            "property": {
+                "title": "Property",
+                "works": {
+                    "title": "How it works",
+                    "step1": "Step 1",
+                    "step2": "Step 2",
+                    "step3": "Step 3",
+                    "p1": "Invest in a piece of this property",
+                    "p2": "Earn monthly rental income",
+                    "p3": "Watch your investment grow"
+                },
+                "overview": "Property Overview",
+                "location": "Location",
+                "comment": "Have more questions about this property?",
+                "message": "Enter your message here...",
+                "price": "Property price",
+                "buy": "Invest Now",
+                "funded": "Funded date",
+                "purchase": "Purchase price",
+                "total": "Total rental income"
+            },
+            "propertyCom": {
+                "funded": "Funded date",
+                "purchase": "Purchase price",
+                "total": "Total rental income"
+            },
+            "myWallet": {
+                "title": "My Wallet",
+                "cash": "Cash balance",
+                "deposit": "Deposit",
+                "withdraw": "Withdraw",
+                "rewards": "Rewards balance",
+                "transactions": "Transactions",
+                "type": "Type",
+                "status": "Status",
+                "date": "Date",
+                "amount": "Amount",
+                "p": "This number shows your current rewards balance. It includes all cashback rewards earned from purchases, referral bonuses; and any other promotial rewards that have not been redeemed yet. This balance can be used to invest in nex properties but cannot be withdraw as cash.",
+                "depositM": "Deposit Money",
+                "withdrawM": "Withdraw Money",
+                "select": "Select a number:",
+                "cancel": "Cancel"
+            },
+            "settings": {
+                "profile": "Profile",
+                "password": "Password",
+                "plans": "Plans",
+                "informations": "Profile information",
+                "fullname": "Full name",
+                "email": "Email",
+                "save": "Save",
+                "reset": "Password reset",
+                "current": "Current password",
+                "new": "New password",
+                "confirm": "Confirm password",
+                "CP": "Current Plan"
+            },
+            "form": {
+                "login": "Login",
+                "signup": "Sign up"
+            }
+        }
+    },
+    "french": {
+        "title": "Français",
+        "subTitle": "fr",
+        "data": {
+            "welcome": {
+                "header": {
+                    "alert": "10,1 % de rendement moyen pour les investisseurs en 2025",
+                    "build1": "Construisez votre richesse",
+                    "build2": "grâce à ",
+                    "estate": "l'immobilier ",
+                    "p": "Des milliers d'investisseurs à travers le monde utilisent Stake pour accéder à des opportunités immobilières génératrices de revenus sur des marchés en forte croissance, à partir de seulement 500 AED",
+                    "start": "Commencez maintenant"
+                },
+                "main": {
+                    "how": "Comment ça fonctionne",
+                    "p1": "Constituez un portefeuille immobilier",
+                    "p2": "générateur de revenus, en toute simplicité",
+                    "box1": {
+                        "sub": "Explorer",
+                        "title": "Accédez à des biens immobiliers de premier choix sur plusieurs marchés",
+                        "p": "Inscrivez-vous en moins de 3 minutes et explorez notre sélection de biens et de fonds mondiaux, sélectionnés par des experts"
+                    },
+                    "box2": {
+                        "sub": "Investir",
+                        "title": "Prenez une part des biens que vous aimez, dès 500 AED",
+                        "p": "Évitez les tracas et achetez des parts de vos offres préférées, où que vous soyez dans le monde."
+                    },
+                    "box3": {
+                        "sub": "Gagner",
+                        "title": "Profitez d’un revenu passif régulier sans effort",
+                        "p": "Détendez-vous et recevez des revenus locatifs constants grâce à votre tout nouveau portefeuille immobilier",
+                        "l1": "Versés directement dans votre portefeuille Stake"
+                    },
+                    "box4": {
+                        "sub": "Vendre",
+                        "title": "Accédez à de la liquidité quand vous en avez le plus besoin",
+                        "p": "Réalisez l’ensemble de votre plus-value à maturité ou prenez des bénéfices anticipés en vendant au sein de notre communauté",
+                        "l1": "Vendez pendant nos fenêtres de sortie",
+                        "l2": "Vente complète de biens et de fonds"
+                    }
+                },
+                "card": {
+                    "download": "Téléchargez notre application",
+                    "title": "La manière moderne d’investir dans l’immobilier pour tous"
+                }
+            },
+            "login": {
+                "welcome": "Bon retour",
+                "p": "Entrez vos identifiants pour accéder à votre compte",
+                "email": "E-mail",
+                "emailP": "Entrez votre adresse e-mail",
+                "password": "Mot de passe",
+                "passwordP": "Entrez votre mot de passe",
+                "login": "Se connecter",
+                "account": "Vous n'avez pas de compte ?",
+                "signup": "Inscrivez-vous"
+            },
+            "signup": {
+                "welcome": "Commencez à investir",
+                "p": "Entrez vos informations pour créer votre nouveau compte",
+                "fullname": "Nom complet",
+                "fullnameP": "Entrez votre nom complet",
+                "email": "E-mail",
+                "emailP": "Entrez votre adresse e-mail",
+                "password": "Mot de passe",
+                "passwordP": "Entrez votre mot de passe",
+                "signup": "Créer un compte",
+                "login": "Connexion",
+                "account": "Vous avez déjà un compte ?"
+            },
+            "sidebar": {
+                "dashboard": "Tableau de bord",
+                "properties": "Propriétés",
+                "myWallet": "Mon portefeuille",
+                "myDeals": "Mes offres",
+                "settings": "Paramètres",
+                "logout": "Déconnexion",
+                "liked": "Propriétés aimées",
+                "saved": "Propriétés enregistrées"
+            },
+            "dashboard": {
+                "title": "Tableau de bord",
+                "welcome": "Bienvenue",
+                "p": "Explorez des opportunités d'investissement sur mesure",
+                "balance": "Solde du portefeuille",
+                "income": "Revenu mensuel",
+                "rental": "Revenu locatif total",
+                "title2": "Opportunités d’investissement",
+                "title2sub": "Découvrez des biens qui correspondent à vos objectifs",
+                "button": "Voir toutes les opportunités"
+            },
+            "myDeals": {
+                "title": "Mes offres"
+            },
+            "properties": {
+                "title": "Propriétés"
+            },
+            "property": {
+                "title": "Propriété",
+                "works": {
+                    "title": "Comment ça fonctionne",
+                    "step1": "Étape 1",
+                    "step2": "Étape 2",
+                    "step3": "Étape 3",
+                    "p1": "Investissez dans une part de cette propriété",
+                    "p2": "Recevez un revenu locatif mensuel",
+                    "p3": "Regardez votre investissement croître"
+                },
+                "overview": "Aperçu de la propriété",
+                "location": "Emplacement",
+                "comment": "Vous avez d'autres questions sur cette propriété ?",
+                "message": "Entrez votre message ici...",
+                "price": "Prix de la propriété",
+                "buy": "Investir maintenant",
+                "funded": "Date de financement",
+                "purchase": "Prix d'achat",
+                "total": "Revenu locatif total"
+            },
+            "propertyCom": {
+                "funded": "Date de financement",
+                "purchase": "Prix d'achat",
+                "total": "Revenu locatif total"
+            },
+            "myWallet": {
+                "title": "Mon portefeuille",
+                "cash": "Solde en espèces",
+                "deposit": "Déposer",
+                "withdraw": "Retirer",
+                "rewards": "Solde des récompenses",
+                "transactions": "Transactions",
+                "type": "Type",
+                "status": "Statut",
+                "date": "Date",
+                "amount": "Montant",
+                "p": "Ce chiffre représente votre solde actuel de récompenses. Il inclut toutes les récompenses de cashback obtenues lors d'achats, les bonus de parrainage, et toute autre récompense promotionnelle non encore utilisée. Ce solde peut être utilisé pour investir dans de nouvelles propriétés, mais ne peut pas être retiré en espèces.",
+                "depositM": "Déposer de l'argent",
+                "withdrawM": "Retirer de l'argent",
+                "select": "Sélectionnez un montant :",
+                "cancel": "Annuler"
+            },
+            "settings": {
+                "profile": "Profil",
+                "password": "Mot de passe",
+                "plans": "Abonnements",
+                "informations": "Informations du profil",
+                "fullname": "Nom complet",
+                "email": "E-mail",
+                "save": "Enregistrer",
+                "reset": "Réinitialisation du mot de passe",
+                "current": "Mot de passe actuel",
+                "new": "Nouveau mot de passe",
+                "confirm": "Confirmer le mot de passe",
+                "CP": "Abonnement actuel"
+            },
+            "form": {
+                "login": "Connexion",
+                "signup": "Inscription"
+            }
+        }
+    }
+
+}
