@@ -1,7 +1,7 @@
 import react, {useEffect, useState} from "react"
 import axios from "axios"
 
-export const BackendURL = "http://localhost:8080/api";
+export const BackendURL = "https://d1zd6zgui5krcw.cloudfront.net/api";
 
 
 

@@ -19,7 +19,7 @@ public class DemoApplication {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**") // Allow all endpoints
-                        .allowedOrigins("http://localhost:5173", "https://example.com") // Restrict to trusted origins
+                        .allowedOrigins("http://localhost:5173", "https://d1ory240ebyh29.cloudfront.net") // Restrict to trusted origins
                         .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS") // Allow specific HTTP methods
                         .allowedHeaders("*") // Allow all headers
                         .allowCredentials(true); // Allow credentials (if needed)
