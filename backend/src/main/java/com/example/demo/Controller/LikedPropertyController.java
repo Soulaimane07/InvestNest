@@ -26,7 +26,7 @@ public class LikedPropertyController {
     public ResponseEntity<?> saveProperty(@RequestBody LikedProperty likedProperty) {
         // Assuming the combination of userId and propertyId must be unique
         Optional<LikedProperty> existing = likedPropertyRepository
-            .findByIdUserAndIdProperty(likedProperty.getIdUser(), likedProperty.getIdProperty());
+                .findByIdUserAndIdProperty(likedProperty.getIdUser(), likedProperty.getIdProperty());
 
         if (existing.isPresent()) {
             return ResponseEntity
@@ -38,7 +38,6 @@ public class LikedPropertyController {
         return ResponseEntity.ok(saved);
     }
 
-
     @GetMapping
     public List<LikedProperty> getAllSavedProperties() {
         return likedPropertyRepository.findAll();
@@ -47,19 +46,18 @@ public class LikedPropertyController {
     @GetMapping("/user/{idUser}")
     public List<Property> getSavedPropertiesByUserId(@PathVariable int idUser) {
         List<LikedProperty> savedList = likedPropertyRepository.findByIdUser(idUser);
-        
-        return savedList.stream()
-            .map(saved -> propertyRepository.findById(saved.getIdProperty()).orElse(null))
-            .filter(property -> property != null)
-            .collect(Collectors.toList());
-    }
 
+        return savedList.stream()
+                .map(saved -> propertyRepository.findById(saved.getIdProperty()).orElse(null))
+                .filter(property -> property != null)
+                .collect(Collectors.toList());
+    }
 
     @DeleteMapping("/{id}")
     public void deleteLikedProperty(@PathVariable String id) {
         likedPropertyRepository.deleteById(id);
     }
-    
+
     @DeleteMapping
     public void deleteallLikedProperty() {
         likedPropertyRepository.deleteAll();

@@ -27,9 +27,8 @@ public class Property {
     }
 
     public Property(String id, String title, float price, Date fundedDate, float purchasePrice, int totalInvestors,
-                    float totalRentalIncome, String location, String mapsLocation, List<String> listImages,
-                    int totalRooms, float squareSpace, String overview) 
-    {
+            float totalRentalIncome, String location, String mapsLocation, List<String> listImages,
+            int totalRooms, float squareSpace, String overview) {
         this.id = id;
         this.title = title;
         this.price = price;
@@ -66,8 +65,8 @@ public class Property {
         return price;
     }
 
-    public void setPrice(float price) {
-        this.price = price;
+    public void setPrice(double price) {
+        this.price = (float) price;
     }
 
     public Date getFundedDate() {

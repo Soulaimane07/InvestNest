@@ -11,7 +11,8 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/users")
-@CrossOrigin // Allow cross-origin requests if you're testing from frontend like React/Angular
+@CrossOrigin // Allow cross-origin requests if you're testing from frontend like
+             // React/Angular
 public class UserController {
 
     @Autowired
@@ -27,7 +28,7 @@ public class UserController {
     public ResponseEntity<User> getUserById(@PathVariable int id) {
         Optional<User> user = userRepository.findById(id);
         return user.map(ResponseEntity::ok)
-                   .orElseGet(() -> ResponseEntity.notFound().build());
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
@@ -61,7 +62,6 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
-
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable int id) {
