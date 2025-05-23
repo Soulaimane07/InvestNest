@@ -14,8 +14,6 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Optional;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -67,7 +65,6 @@ public class UserWalletTest {
                 UserWallet.class
         );
         assertThat(createResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
-        int walletId = createResponse.getBody().getId();
 
         // Deposit 50
         ResponseEntity<UserWallet> depositResponse = restTemplate.postForEntity(
@@ -77,6 +74,6 @@ public class UserWalletTest {
         );
 
         assertThat(depositResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(depositResponse.getBody().getBalance()).isEqual;
+        assertThat(depositResponse.getBody().getBalance()).isEqualTo(null);
     }
 }
