@@ -21,8 +21,10 @@ jobs:
         distribution: 'temurin'
 
     - name: Build the application
-      run: cd backend
-      run: mvn clean install
+      run: |
+        cd backend
+        mvn clean install
+
 
     - name: Run unit and integration tests
       run: mvn test
