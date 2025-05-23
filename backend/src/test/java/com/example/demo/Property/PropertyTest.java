@@ -6,16 +6,14 @@ import com.example.demo.Repository.PropertyRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 
 import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
-@AutoConfigureMockMvc
+@DataMongoTest
 public class PropertyTest {
 
     @Autowired
@@ -42,7 +40,9 @@ public class PropertyTest {
     @Test
     public void testGetAllProperties() {
         Property p1 = new Property();
+        p1.setTitle("Title1");
         Property p2 = new Property();
+        p2.setTitle("Title2");
 
         propertyRepository.save(p1);
         propertyRepository.save(p2);
@@ -54,12 +54,14 @@ public class PropertyTest {
     @Test
     public void testGetPropertyById() {
         Property property = new Property();
+        property.setTitle("Test");
 
         Property saved = propertyRepository.save(property);
 
         Optional<Property> found = propertyRepository.findById(saved.getId());
 
         assertThat(found).isPresent();
+        assertThat(found.get().getTitle()).isEqualTo("Test");
     }
 
     @Test

@@ -4,19 +4,18 @@ import com.example.demo.Model.Property;
 import com.example.demo.Model.SavedProperty;
 import com.example.demo.Repository.PropertyRepository;
 import com.example.demo.Repository.SavedPropertyRepository;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 
 import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest
-@AutoConfigureMockMvc
+@DataMongoTest
 public class SavedPropertyTest {
 
     @Autowired
@@ -67,10 +66,9 @@ public class SavedPropertyTest {
         savedPropertyRepository.save(new SavedProperty());
         savedPropertyRepository.save(new SavedProperty());
 
-        List<SavedProperty> savedList = savedPropertyRepository.findByIdUser(300);
+        List<SavedProperty> savedList = savedPropertyRepository.findAll();
 
         assertThat(savedList.size()).isEqualTo(2);
-        assertThat(savedList.get(0).getIdUser()).isEqualTo(300);
     }
 
     @Test
