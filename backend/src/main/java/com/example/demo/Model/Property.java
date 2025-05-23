@@ -17,7 +17,6 @@ public class Property {
     private int totalInvestors;
     private float totalRentalIncome;
     private String location;
-    private String mapsLocation;
     private List<String> listImages;
     private int totalRooms;
     private float squareSpace;
@@ -27,7 +26,7 @@ public class Property {
     }
 
     public Property(String id, String title, float price, Date fundedDate, float purchasePrice, int totalInvestors,
-            float totalRentalIncome, String location, String mapsLocation, List<String> listImages,
+            float totalRentalIncome, String location, List<String> listImages,
             int totalRooms, float squareSpace, String overview) {
         this.id = id;
         this.title = title;
@@ -41,7 +40,6 @@ public class Property {
         this.totalRooms = totalRooms;
         this.squareSpace = squareSpace;
         this.overview = overview;
-        this.mapsLocation = mapsLocation;
     }
 
     // Getters and Setters

@@ -64,9 +64,6 @@ public class SavedPropertyTest {
 
     @Test
     public void testGetSavedPropertiesByUser() {
-        Property property1 = propertyRepository.save(new Property());
-        Property property2 = propertyRepository.save(new Property());
-
         savedPropertyRepository.save(new SavedProperty());
         savedPropertyRepository.save(new SavedProperty());
 
@@ -78,7 +75,6 @@ public class SavedPropertyTest {
 
     @Test
     public void testDeleteSavedPropertyById() {
-        Property property = propertyRepository.save(new Property());
         SavedProperty saved = new SavedProperty();
         saved = savedPropertyRepository.save(saved);
 
