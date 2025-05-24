@@ -40,15 +40,35 @@ jobs:
           username: ${{ secrets.AWS_EC2_USER }}
           key: ${{ secrets.AWS_EC2_SSH_KEY }}
           script: |
-            if ! command -v java > /dev/null; then
-              echo "Java not found, installing..."
-              sudo yum update -y
-              sudo yum install -y java-17-amazon-corretto-devel
+            # Check Java version
+            if ! java -version 2>&1 | grep '23'; then
+              echo "Java 23 not found, installing..."
+
+              # Download OpenJDK 23 tar.gz from Adoptium (example URL)
+              wget https://github.com/adoptium/temurin23-binaries/releases/latest/download/OpenJDK23U-jdk_x64_linux_hotspot_23.tar.gz -O /tmp/jdk23.tar.gz
+              
+              # Extract to /opt
+              sudo mkdir -p /opt/jdk23
+              sudo tar -xzf /tmp/jdk23.tar.gz -C /opt/jdk23 --strip-components=1
+              
+              # Setup alternatives for java and javac
+              sudo update-alternatives --install /usr/bin/java java /opt/jdk23/bin/java 1
+              sudo update-alternatives --install /usr/bin/javac javac /opt/jdk23/bin/javac 1
+              
+              # Set Java 23 as default
+              sudo update-alternatives --set java /opt/jdk23/bin/java
+              sudo update-alternatives --set javac /opt/jdk23/bin/javac
+
+              echo "Java 23 installed"
             else
-              echo "Java is already installed"
+              echo "Java 23 is already installed"
             fi
 
+            # Kill old app if running
             pkill -f 'java -jar backend.jar' || true
+
+            # Start app in background
             nohup java -jar /home/${{ secrets.AWS_EC2_USER }}/backend.jar > /dev/null 2>&1 &
+
 
 
