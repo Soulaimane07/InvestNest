@@ -30,8 +30,8 @@ jobs:
           host: ${{ secrets.AWS_EC2_IP }}
           username: ${{ secrets.AWS_EC2_USER }}
           key: ${{ secrets.AWS_EC2_SSH_KEY }}
-          source: "backend/target/movify-backend-0.0.1-SNAPSHOT.jar"
-          target: "/home/${{ secrets.AWS_EC2_USER }}/movify-backend.jar"
+          source: "backend/target/demo-0.0.1-SNAPSHOT.jar"
+          target: "/home/${{ secrets.AWS_EC2_USER }}/backend.jar"
 
       - name: Restart app on EC2
         uses: appleboy/ssh-action@v0.1.5
@@ -40,5 +40,5 @@ jobs:
           username: ${{ secrets.AWS_EC2_USER }}
           key: ${{ secrets.AWS_EC2_SSH_KEY }}
           script: |
-            pkill -f 'java -jar movify-backend.jar' || true
-            nohup java -jar /home/${{ secrets.AWS_EC2_USER }}/movify-backend.jar > /dev/null 2>&1 &
+            pkill -f 'java -jar backend.jar' || true
+            nohup java -jar /home/${{ secrets.AWS_EC2_USER }}/backend.jar > /dev/null 2>&1 &
