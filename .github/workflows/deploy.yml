@@ -40,18 +40,15 @@ jobs:
           username: ${{ secrets.AWS_EC2_USER }}
           key: ${{ secrets.AWS_EC2_SSH_KEY }}
           script: |
-            # Check if java is installed, if not install it (example for Ubuntu/Debian)
             if ! command -v java > /dev/null; then
               echo "Java not found, installing..."
-              sudo apt-get update
-              sudo apt-get install -y openjdk-17-jdk
+              sudo yum update -y
+              sudo yum install -y java-17-amazon-corretto-devel
             else
               echo "Java is already installed"
             fi
 
-            # Stop old app if running
             pkill -f 'java -jar backend.jar' || true
-            
-            # Start the new app in background
             nohup java -jar /home/${{ secrets.AWS_EC2_USER }}/backend.jar > /dev/null 2>&1 &
+
 
