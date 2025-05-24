@@ -1,5 +1,3 @@
-(mark down)
-
 # Stake Clone Project
 
 This project is a clone of the Stake platform (https://getstake.com), designed to provide users with a modern and intuitive way to invest in real estate. It includes a web application, a mobile application, and a backend API to support the platform's functionality.
