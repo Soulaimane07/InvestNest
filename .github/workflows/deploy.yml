@@ -59,5 +59,4 @@ jobs:
             else
               echo "Java 23 is already installed"
             fi
-            pkill -f 'java -jar backend.jar/backend/backend.jar' || true
-            nohup java -jar /home/${{ secrets.AWS_EC2_USER }}/backend.jar/backend/backend.jar > /dev/null 2>&1 &
+            java -jar backend.jar/backend/backend.jar
