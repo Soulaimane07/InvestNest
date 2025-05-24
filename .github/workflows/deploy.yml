@@ -59,4 +59,3 @@ jobs:
             else
               echo "Java 23 is already installed"
             fi
-            java -jar backend.jar/backend/backend.jar
