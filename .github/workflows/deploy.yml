@@ -40,5 +40,4 @@ jobs:
           username: ${{ secrets.AWS_EC2_USER }}
           key: ${{ secrets.AWS_EC2_SSH_KEY }}
           script: |
-            pkill -f 'java -jar backend.jar' || true
-            nohup java -jar /home/${{ secrets.AWS_EC2_USER }}/backend.jar > /dev/null 2>&1 &
+            java -jar /home/${{ secrets.AWS_EC2_USER }}/backend.jar
