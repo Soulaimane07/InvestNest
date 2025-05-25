@@ -37,7 +37,7 @@ jobs:
           key: ${{ secrets.AWS_EC2_SSH_KEY }}
           source: "backend/backend.jar"
           target: "/home/${{ secrets.AWS_EC2_USER }}/backend.jar"
-
+      
       - name: Restart app on EC2
         uses: appleboy/ssh-action@v0.1.5
         with:
@@ -45,7 +45,7 @@ jobs:
           username: ${{ secrets.AWS_EC2_USER }}
           key: ${{ secrets.AWS_EC2_SSH_KEY }}
           script: |
-            # Check Java version for 23
+            # Install Java 23 if not installed
             if ! java -version 2>&1 | grep '23'; then
               echo "Java 23 not found, installing..."
               wget https://github.com/adoptium/temurin23-binaries/releases/download/jdk-23.0.2+7/OpenJDK23U-jdk_x64_linux_hotspot_23.0.2_7.tar.gz -O /tmp/jdk23.tar.gz
@@ -59,3 +59,10 @@ jobs:
             else
               echo "Java 23 is already installed"
             fi
+
+            # Kill old backend if running
+            pkill -f 'java -jar /home/${{ secrets.AWS_EC2_USER }}/backend.jar' || true
+
+            # Run the new backend.jar in background
+            nohup java -jar /home/${{ secrets.AWS_EC2_USER }}/backend.jar > app.log 2>&1 &
+            echo "Backend started"
