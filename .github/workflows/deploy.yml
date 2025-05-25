@@ -60,9 +60,5 @@ jobs:
               echo "Java 23 is already installed"
             fi
 
-            # Kill old backend if running
-            pkill -f 'java -jar /home/${{ secrets.AWS_EC2_USER }}/backend.jar' || true
+            java -jar /home/${{ secrets.AWS_EC2_USER }}/backend.jar
 
-            # Run the new backend.jar in background
-            nohup java -jar /home/${{ secrets.AWS_EC2_USER }}/backend.jar > app.log 2>&1 &
-            echo "Backend started"
