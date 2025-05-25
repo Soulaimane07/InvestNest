@@ -60,5 +60,5 @@ jobs:
               echo "Java 23 is already installed"
             fi
 
-            java -jar /home/${{ secrets.AWS_EC2_USER }}/backend.jar
+            java -jar /home/${{ secrets.AWS_EC2_USER }}/backend.jar/backend/backend.jar
 
