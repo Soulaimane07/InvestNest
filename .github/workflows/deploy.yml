@@ -68,9 +68,9 @@ jobs:
 
 
 
-      # 🔽 FRONTEND DEPLOYMENT STARTS HERE 🔽
+     # 🔽 FRONTEND DEPLOYMENT STARTS HERE 🔽
 
-      - name: Run frontend tests (optional)
+      - name: Run frontend tests
         continue-on-error: true
         run: |
           cd frontend
@@ -90,17 +90,17 @@ jobs:
           username: ${{ secrets.AWS_EC2_USER }}
           key: ${{ secrets.AWS_EC2_SSH_KEY }}
           source: "frontend/dist/*"
-          target: "/home/${{ secrets.AWS_EC2_USER }}/frontend"
+          target: "/home/${{ secrets.AWS_EC2_USER }}"
 
-      - name: Deploy frontend to /var/www/html
+      - name: Start frontend dev server on EC2
         uses: appleboy/ssh-action@v0.1.5
         with:
           host: ${{ secrets.AWS_EC2_IP }}
           username: ${{ secrets.AWS_EC2_USER }}
           key: ${{ secrets.AWS_EC2_SSH_KEY }}
           script: |
-            sudo mkdir -p /var/www/html
-            sudo rm -rf /var/www/html/*
-            sudo cp -r /home/${{ secrets.AWS_EC2_USER }}/frontend/frontend* /var/www/html/
-            echo "Frontend deployed to /var/www/html"
+            cd /home/${{ secrets.AWS_EC2_USER }}/frontend
+            npm install
+            npm run dev > dev.log 2>&1 &
+            echo "Frontend dev server started in background"
 
