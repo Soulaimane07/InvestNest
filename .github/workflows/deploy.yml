@@ -63,3 +63,37 @@ jobs:
             # Run the new backend.jar in background
             java -jar /home/${{ secrets.AWS_EC2_USER }}/backend.jar/backend/backend.jar > app.log 2>&1 &
             echo "Backend started"
+
+      # 🔽 FRONTEND DEPLOYMENT STARTS HERE 🔽
+
+      - name: Run frontend tests
+        run: |
+          cd frontend
+          npm ci
+          npm test -- --watchAll=false
+
+      - name: Install frontend dependencies and build
+        run: |
+          cd frontend
+          npm install
+          npm run build
+
+      - name: Copy frontend files to EC2
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.AWS_EC2_IP }}
+          username: ${{ secrets.AWS_EC2_USER }}
+          key: ${{ secrets.AWS_EC2_SSH_KEY }}
+          source: "frontend/dist/*"
+          target: "/home/${{ secrets.AWS_EC2_USER }}/frontend"
+
+      - name: Deploy frontend to /var/www/html
+        uses: appleboy/ssh-action@v0.1.5
+        with:
+          host: ${{ secrets.AWS_EC2_IP }}
+          username: ${{ secrets.AWS_EC2_USER }}
+          key: ${{ secrets.AWS_EC2_SSH_KEY }}
+          script: |
+            sudo rm -rf /var/www/html/*
+            sudo cp -r /home/${{ secrets.AWS_EC2_USER }}/frontend/* /var/www/html/
+            echo "Frontend deployed to /var/www/html"
