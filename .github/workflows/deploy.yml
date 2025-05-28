@@ -81,8 +81,8 @@ jobs:
             echo "Java 23 installed"
           fi
 
-          # Run Spring Boot app
-          nohup java -jar /home/${{ secrets.AWS_EC2_USER }}/backend.jar/backend/backend.jar > app.log 2>&1 &
+          # Run the new backend.jar in background
+          java -jar /home/${{ secrets.AWS_EC2_USER }}/backend.jar/backend/backend.jar > app.log 2>&1 &
           echo "Backend started"
 
           
