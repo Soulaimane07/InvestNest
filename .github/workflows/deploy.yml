@@ -97,8 +97,18 @@ jobs:
           username: ${{ secrets.AWS_EC2_USER }}
           key: ${{ secrets.AWS_EC2_SSH_KEY }}
           script: |
+            # Install Node.js (v18 LTS) and npm if not already installed
+            if ! command -v node &> /dev/null; then
+              echo "Installing Node.js..."
+              curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+              sudo apt-get install -y nodejs
+            else
+              echo "Node.js is already installed"
+            fi
+
             cd /home/${{ secrets.AWS_EC2_USER }}/frontend
             npm install
             npm run dev > dev.log 2>&1 &
             echo "Frontend dev server started in background" 
+
 
