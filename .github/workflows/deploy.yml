@@ -47,7 +47,8 @@ jobs:
         key: ${{ secrets.AWS_EC2_SSH_KEY }}
         source: "backend/backend.jar"
         target: "/home/${{ secrets.AWS_EC2_USER }}/backend.jar"
-
+ 
+ 
     # ==== SCP: Upload frontend build (dist/) ====
     - name: Upload frontend (dist/) to EC2
       uses: appleboy/scp-action@v0.1.4
