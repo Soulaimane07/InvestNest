@@ -23,25 +23,45 @@ services:
     volumes:
       - mongodb_data:/data/db
 
-  backend:
-    build:
-      context: ./backend
-    container_name: springboot_app
-    ports:
-      - "8080:8080"
-    depends_on:
-      - mysql
-      - mongo
+  # backend:
+#   build:
+#     context: ./backend
+#   container_name: springboot_app
+#   ports:
+#     - "8080:8080"
+#   depends_on:
+#     - mysql
+#     - mongo
 
-  frontend:
-    build:
-      context: ./frontend
-    container_name: react_app
+# frontend:
+#   build:
+#     context: ./frontend
+#   container_name: react_app
+#   ports:
+#     - "5173:5173"
+#   depends_on:
+#     - backend
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
     ports:
-      - "5173:5173"
-    depends_on:
-      - backend
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
 
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+  node_exporter:
+    image: prom/node-exporter
+    container_name: node_exporter
+    ports:
+      - "9100:9100"
 volumes:
   mysql_data:
   mongodb_data:
+  grafana_data:
