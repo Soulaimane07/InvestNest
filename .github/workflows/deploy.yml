@@ -100,8 +100,8 @@ jobs:
             # Install Node.js (v18 LTS) and npm if not already installed
             if ! command -v node &> /dev/null; then
               echo "Installing Node.js..."
-              curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-              sudo apt-get install -y nodejs
+              curl -fsSL https://rpm.nodesource.com/setup_18.x | sudo bash -
+              sudo yum install -y nodejs
             else
               echo "Node.js is already installed"
             fi
