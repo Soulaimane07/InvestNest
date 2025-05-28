@@ -100,5 +100,5 @@ jobs:
             cd /home/${{ secrets.AWS_EC2_USER }}/frontend
             npm install
             npm run dev > dev.log 2>&1 &
-            echo "Frontend dev server started in background"
+            echo "Frontend dev server started in background" 
 
