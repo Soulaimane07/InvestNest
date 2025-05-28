@@ -64,6 +64,10 @@ jobs:
             java -jar /home/${{ secrets.AWS_EC2_USER }}/backend.jar/backend/backend.jar > app.log 2>&1 &
             echo "Backend started"
 
+
+
+
+
       # 🔽 FRONTEND DEPLOYMENT STARTS HERE 🔽
 
       - name: Run frontend tests (optional)
@@ -72,7 +76,6 @@ jobs:
           cd frontend
           npm ci
           npm run test --if-present -- --watchAll=false
-
 
       - name: Install frontend dependencies and build
         run: |
@@ -96,6 +99,8 @@ jobs:
           username: ${{ secrets.AWS_EC2_USER }}
           key: ${{ secrets.AWS_EC2_SSH_KEY }}
           script: |
+            sudo mkdir -p /var/www/html
             sudo rm -rf /var/www/html/*
-            sudo cp -r /home/${{ secrets.AWS_EC2_USER }}/frontend/* /var/www/html/
+            sudo cp -r /home/${{ secrets.AWS_EC2_USER }}/frontend/frontend* /var/www/html/
             echo "Frontend deployed to /var/www/html"
+
