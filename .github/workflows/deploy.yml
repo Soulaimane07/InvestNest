@@ -13,6 +13,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # 🔽 Backend DEPLOYMENT STARTS HERE 🔽
+
       - name: Set up JDK 21
         uses: actions/setup-java@v3
         with:
@@ -64,10 +66,6 @@ jobs:
             java -jar /home/${{ secrets.AWS_EC2_USER }}/backend.jar/backend/backend.jar > app.log 2>&1 &
             echo "Backend started"
 
-
-
-
-
      # 🔽 FRONTEND DEPLOYMENT STARTS HERE 🔽
 
       - name: Run frontend tests
@@ -77,11 +75,11 @@ jobs:
           npm ci
           npm run test --if-present -- --watchAll=false
 
-      - name: Install frontend dependencies and build
-        run: |
-          cd frontend
-          npm install
-          npm run build
+      # - name: Install frontend dependencies and build
+      #   run: |
+      #     cd frontend
+      #     npm install
+      #     npm run build
 
       - name: Copy frontend files to EC2
         uses: appleboy/scp-action@v0.1.4
@@ -89,7 +87,7 @@ jobs:
           host: ${{ secrets.AWS_EC2_IP }}
           username: ${{ secrets.AWS_EC2_USER }}
           key: ${{ secrets.AWS_EC2_SSH_KEY }}
-          source: "frontend/dist/*"
+          source: "frontend/*"
           target: "/home/${{ secrets.AWS_EC2_USER }}"
 
       - name: Start frontend dev server on EC2
