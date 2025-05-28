@@ -1,4 +1,4 @@
-name: Spring Boot CI Pipeline
+name: Full Stack CI Pipeline
 
 on:
   push:
@@ -14,18 +14,40 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
+    # === BACKEND SETUP ===
     - name: Set up JDK 21
       uses: actions/setup-java@v3
       with:
         java-version: '21'
         distribution: 'temurin'
 
-    - name: Build the application
+    - name: Build Spring Boot backend
       run: |
         cd backend
         mvn clean install
 
-    - name: Run unit and integration tests
+    - name: Run Spring Boot tests
       run: |
         cd backend
         mvn test
+
+    # === FRONTEND SETUP ===
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+
+    - name: Install frontend dependencies
+      run: |
+        cd frontend
+        npm i
+
+    - name: Build frontend with Vite
+      run: |
+        cd frontend
+        npm run build
+
+    - name: Run frontend tests
+      run: |
+        cd frontend
+        npm run test --if-present  # assumes you have a test script

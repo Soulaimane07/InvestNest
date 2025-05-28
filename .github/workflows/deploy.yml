@@ -1,4 +1,4 @@
-name: Deploy to AWS EC2
+name: Deploy Full Stack to AWS EC2
 
 on:
   push:
@@ -10,56 +10,80 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      - name: Set up JDK 21
-        uses: actions/setup-java@v3
-        with:
-          java-version: '21'
-          distribution: 'temurin'
+    # ==== BACKEND SETUP ====
+    - name: Set up JDK 21
+      uses: actions/setup-java@v3
+      with:
+        java-version: '21'
+        distribution: 'temurin'
 
-      - name: Build with Maven
-        run: |
-          cd backend
-          mvn clean package -DskipTests
+    - name: Build backend with Maven
+      run: |
+        cd backend
+        mvn clean package -DskipTests
+        mv target/demo-0.0.1-SNAPSHOT.jar backend.jar
 
-      - name: Move JAR to backend root folder
-        run: |
-          cd backend
-          mv target/demo-0.0.1-SNAPSHOT.jar backend.jar
+    # ==== FRONTEND SETUP ====
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
 
-      - name: Copy jar to EC2
-        uses: appleboy/scp-action@v0.1.4
-        with:
-          host: ${{ secrets.AWS_EC2_IP }}
-          username: ${{ secrets.AWS_EC2_USER }}
-          key: ${{ secrets.AWS_EC2_SSH_KEY }}
-          source: "backend/backend.jar"
-          target: "/home/${{ secrets.AWS_EC2_USER }}/backend.jar"
-      
-      - name: Restart app on EC2
-        uses: appleboy/ssh-action@v0.1.5
-        with:
-          host: ${{ secrets.AWS_EC2_IP }}
-          username: ${{ secrets.AWS_EC2_USER }}
-          key: ${{ secrets.AWS_EC2_SSH_KEY }}
-          script: |
-            # Install Java 23 if not installed
-            if ! java -version 2>&1 | grep '23'; then
-              echo "Java 23 not found, installing..."
-              wget https://github.com/adoptium/temurin23-binaries/releases/download/jdk-23.0.2+7/OpenJDK23U-jdk_x64_linux_hotspot_23.0.2_7.tar.gz -O /tmp/jdk23.tar.gz
-              sudo mkdir -p /opt/jdk23
-              sudo tar -xzf /tmp/jdk23.tar.gz -C /opt/jdk23 --strip-components=1
-              sudo update-alternatives --install /usr/bin/java java /opt/jdk23/bin/java 1
-              sudo update-alternatives --install /usr/bin/javac javac /opt/jdk23/bin/javac 1
-              sudo update-alternatives --set java /opt/jdk23/bin/java
-              sudo update-alternatives --set javac /opt/jdk23/bin/javac
-              echo "Java 23 installed"
-            else
-              echo "Java 23 is already installed"
-            fi
+    - name: Build React frontend with Vite
+      run: |
+        cd frontend
+        npm ci
+        npm run build
 
-            # Run the new backend.jar in background
-            java -jar /home/${{ secrets.AWS_EC2_USER }}/backend.jar/backend/backend.jar > app.log 2>&1 &
-            echo "Backend started"
+    # ==== SCP: Copy backend.jar ====
+    - name: Upload backend.jar to EC2
+      uses: appleboy/scp-action@v0.1.4
+      with:
+        host: ${{ secrets.AWS_EC2_IP }}
+        username: ${{ secrets.AWS_EC2_USER }}
+        key: ${{ secrets.AWS_EC2_SSH_KEY }}
+        source: "backend/backend.jar"
+        target: "/home/${{ secrets.AWS_EC2_USER }}/backend.jar"
+ 
+
+    # ==== SCP: Upload frontend build (dist/) ====
+    - name: Upload frontend (dist/) to EC2
+      uses: appleboy/scp-action@v0.1.4
+      with:
+        host: ${{ secrets.AWS_EC2_IP }}
+        username: ${{ secrets.AWS_EC2_USER }}
+        key: ${{ secrets.AWS_EC2_SSH_KEY }}
+        source: "frontend/dist/*"
+        target: "/home/${{ secrets.AWS_EC2_USER }}/frontend"
+
+    # ==== SSH: Restart app + serve frontend ====
+    - name: Restart Spring Boot app and serve frontend
+      uses: appleboy/ssh-action@v0.1.5
+      with:
+        host: ${{ secrets.AWS_EC2_IP }}
+        username: ${{ secrets.AWS_EC2_USER }}
+        key: ${{ secrets.AWS_EC2_SSH_KEY }}
+        script: |
+          # Kill old Spring Boot process if any
+          pkill -f 'backend.jar' || true
+
+          # Java 23 setup (optional)
+          if ! java -version 2>&1 | grep '23'; then
+            echo "Installing Java 23..."
+            wget https://github.com/adoptium/temurin23-binaries/releases/download/jdk-23.0.2+7/OpenJDK23U-jdk_x64_linux_hotspot_23.0.2_7.tar.gz -O /tmp/jdk23.tar.gz
+            sudo mkdir -p /opt/jdk23
+            sudo tar -xzf /tmp/jdk23.tar.gz -C /opt/jdk23 --strip-components=1
+            sudo update-alternatives --install /usr/bin/java java /opt/jdk23/bin/java 1
+            sudo update-alternatives --set java /opt/jdk23/bin/java
+            echo "Java 23 installed"
+          fi
+
+          # Run the new backend.jar in background
+          java -jar /home/${{ secrets.AWS_EC2_USER }}/backend.jar/backend/backend.jar > app.log 2>&1 &
+          echo "Backend started"
+
+          
+
