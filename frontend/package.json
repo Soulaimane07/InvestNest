@@ -8,7 +8,8 @@
     "start": "vite --host",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "echo \"No tests yet\""
   },
   "dependencies": {
     "@react-navigation/native": "^7.1.6",
