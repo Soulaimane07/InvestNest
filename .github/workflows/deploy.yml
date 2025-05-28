@@ -48,7 +48,7 @@ jobs:
         source: "backend/backend.jar"
         target: "/home/${{ secrets.AWS_EC2_USER }}/backend.jar"
  
- 
+
     # ==== SCP: Upload frontend build (dist/) ====
     - name: Upload frontend (dist/) to EC2
       uses: appleboy/scp-action@v0.1.4
@@ -84,8 +84,5 @@ jobs:
           # Run Spring Boot app
           nohup java -jar /home/${{ secrets.AWS_EC2_USER }}/backend.jar > backend.log 2>&1 &
 
-          # Set up frontend (optional: move to /var/www/html if using Nginx)
-          sudo mkdir -p /var/www/html
-          sudo cp -r /home/${{ secrets.AWS_EC2_USER }}/frontend/* /var/www/html/
-          echo "Frontend deployed"
+          
 
