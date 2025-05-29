@@ -23,24 +23,25 @@ services:
     volumes:
       - mongodb_data:/data/db
 
-  # backend:
-#   build:
-#     context: ./backend
-#   container_name: springboot_app
-#   ports:
-#     - "8080:8080"
-#   depends_on:
-#     - mysql
-#     - mongo
+  backend:
+    build:
+      context: ./backend
+    container_name: springboot_app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+      - mongo
 
-# frontend:
-#   build:
-#     context: ./frontend
-#   container_name: react_app
-#   ports:
-#     - "5173:5173"
-#   depends_on:
-#     - backend
+  frontend:
+    build:
+      context: ./frontend
+    container_name: react_app
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+      
   prometheus:
     image: prom/prometheus
     container_name: prometheus
