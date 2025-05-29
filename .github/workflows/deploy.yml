@@ -75,11 +75,11 @@ jobs:
           npm ci
           npm run test --if-present -- --watchAll=false
 
-      - name: Install frontend dependencies and build
-        run: |
-          cd frontend
-          npm install
-          npm run build
+      # - name: Install frontend dependencies and build
+      #   run: |
+      #     cd frontend
+      #     npm install
+      #     npm run build
 
       - name: Copy frontend files to EC2
         uses: appleboy/scp-action@v0.1.4
