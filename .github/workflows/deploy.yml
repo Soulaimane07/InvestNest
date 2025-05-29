@@ -68,12 +68,12 @@ jobs:
 
      # 🔽 FRONTEND DEPLOYMENT STARTS HERE 🔽
 
-      - name: Run frontend tests
-        continue-on-error: true
-        run: |
-          cd frontend
-          npm ci
-          npm run test --if-present -- --watchAll=false
+      # - name: Run frontend tests
+      #   continue-on-error: true
+      #   run: |
+      #     cd frontend
+      #     npm ci
+      #     npm run test --if-present -- --watchAll=false
 
       # - name: Install frontend dependencies and build
       #   run: |
@@ -81,33 +81,33 @@ jobs:
       #     npm install
       #     npm run build
 
-      - name: Copy frontend files to EC2
-        uses: appleboy/scp-action@v0.1.4
-        with:
-          host: ${{ secrets.AWS_EC2_IP }}
-          username: ${{ secrets.AWS_EC2_USER }}
-          key: ${{ secrets.AWS_EC2_SSH_KEY }}
-          source: "frontend/*"
-          target: "/home/${{ secrets.AWS_EC2_USER }}"
+      # - name: Copy frontend files to EC2
+      #   uses: appleboy/scp-action@v0.1.4
+      #   with:
+      #     host: ${{ secrets.AWS_EC2_IP }}
+      #     username: ${{ secrets.AWS_EC2_USER }}
+      #     key: ${{ secrets.AWS_EC2_SSH_KEY }}
+      #     source: "frontend/*"
+      #     target: "/home/${{ secrets.AWS_EC2_USER }}"
 
-      - name: Start frontend dev server on EC2
-        uses: appleboy/ssh-action@v0.1.5
-        with:
-          host: ${{ secrets.AWS_EC2_IP }}
-          username: ${{ secrets.AWS_EC2_USER }}
-          key: ${{ secrets.AWS_EC2_SSH_KEY }}
-          script: |
-            # Install Node.js (v18 LTS) and npm if not already installed
-            if ! command -v node &> /dev/null; then
-              echo "Installing Node.js..."
-              curl -fsSL https://rpm.nodesource.com/setup_18.x | sudo bash -
-              sudo yum install -y nodejs
-            else
-              echo "Node.js is already installed"
-            fi
+      # - name: Start frontend dev server on EC2
+      #   uses: appleboy/ssh-action@v0.1.5
+      #   with:
+      #     host: ${{ secrets.AWS_EC2_IP }}
+      #     username: ${{ secrets.AWS_EC2_USER }}
+      #     key: ${{ secrets.AWS_EC2_SSH_KEY }}
+      #     script: |
+      #       # Install Node.js (v18 LTS) and npm if not already installed
+      #       if ! command -v node &> /dev/null; then
+      #         echo "Installing Node.js..."
+      #         curl -fsSL https://rpm.nodesource.com/setup_18.x | sudo bash -
+      #         sudo yum install -y nodejs
+      #       else
+      #         echo "Node.js is already installed"
+      #       fi
 
-            cd /home/${{ secrets.AWS_EC2_USER }}/frontend
-            npm install
-            npm run dev > dev.log 2>&1 &
-            echo "Frontend dev server started in background" 
+      #       cd /home/${{ secrets.AWS_EC2_USER }}/frontend
+      #       npm install
+      #       npm run dev > dev.log 2>&1 &
+      #       echo "Frontend dev server started in background" 
 
